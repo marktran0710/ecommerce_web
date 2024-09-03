@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: ecommerce_web
+  datasource:
+    url: jdbc:mysql://localhost:3336/shopdevgo
+    username: root
+    password: root1234
+    drive-class-name: com.mysql.jdbc.Driver
+  jpa:
+    database: mysql
+    show-sql: true
+    hibernate:
+      ddl-auto: update
