@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long>, JpaSpec
 
     UserEntity findByUserNameAndUserEmail(String userName, String userEmail);
 
-    UserEntity findByUserNam(String userName);
+    UserEntity findByUserName(String userName);
 
     List<UserEntity> findByUserNameStartingWith(String userEmail);
 
@@ -24,18 +25,18 @@ public interface UserRepository extends JpaRepository<UserEntity, Long>, JpaSpec
     List<UserEntity> findByIdLessThan(Long id);
 
     // RAW
-    @Query("SELECT u FROM UserEntity u WHERE u.id = (SELECT(MAX(p.id) FROM UserEntity p)")
+    @Query("SELECT u FROM UserEntity u WHERE u.id = (SELECT MAX(p.id) FROM UserEntity p)")
     UserEntity findMaxIdUser();
 
     @Query("SELECT u FROM UserEntity u WHERE u.userName = ?1 AND u.userEmail = ?2")
     List<UserEntity> getUserEntityBy( String userName, String userEmail);
 
     @Query("SELECT u FROM UserEntity u WHERE u.userName = :userName AND u.userEmail = :userEmail")
-    List<UserEntity> getUserEntityByTwo(@Param("userNam") String userName, @Param("userEmail") String userEmail);
+    List<UserEntity> getUserEntityByTwo(@Param("userName") String userName, @Param("userEmail") String userEmail);
 
     //    UPDATE - DELETE
     @Modifying
-    @Query("UPDATE UserEntity u SET u.userEmail = :userName")
+    @Query("UPDATE UserEntity u SET u.userEmail =:userName")
     @Transactional
     int updateUserName(@Param("userName") String userName);
 

@@ -17,6 +17,7 @@ public class UserCRUDController {
         return userService.createUser(userEntity);
     };
 
+    @PostMapping("/search")
     public  UserEntity searchUser(@RequestParam String userName, @RequestParam String userEmail) {
         return userService.findByUserNameAndUserEmail(userName,userEmail);
     }
